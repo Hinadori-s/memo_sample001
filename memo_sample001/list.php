@@ -46,13 +46,15 @@
     echo "<a href = add.php>新規追加</a>";
     echo "<h2>メモ一覧</h2>";
 
+    echo "<ul>";
     foreach ($result as $key) {
-        echo "<ul><a href = \"detail.php?id=" . $key["id"] .  "\" >" . $key["title"] . "</a></ul>";
+        echo "<li><a href = \"detail.php?id=" . $key["id"] .  "\" >" . $key["title"] . "</a></li>";
     }
+    echo "</ul>";
 
     ?>
 
-    <a href="list.php"><br>再読み込み</a>
+    <p><a href="list.php">再読み込み</a></p>
 
 </body>
 
