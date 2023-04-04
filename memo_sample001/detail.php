@@ -65,14 +65,15 @@
         }
 
         foreach ($result as $key) {
-            echo "<ul>" . $setting["title"]["label"] .  "<br>" . $key["title"] . "</ul>";
-            echo "<ul>" . $setting["text"]["label"] .  "<br>" . $key["text"] . "<br><br>";
+            echo "<p>" . $setting["title"]["label"] .  "</p><p>" . $key["title"] . "</p>";
+            // テキストには今後htmlが入る可能性を考慮してdivにしておく
+            echo "<p>" . $setting["text"]["label"] .  "</p><div>" . $key["text"] . "</div>";
         }
     }
 
     ?>
 
-    <a href="list.php"><br>一覧に戻る</a>
+    <p><a href="list.php">一覧に戻る</a></p>
 
 </body>
 
