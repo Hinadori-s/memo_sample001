@@ -50,6 +50,7 @@
             echo $key . "<br>";
             echo $setting[$key]["label"] . "：" . $value . "<br>";
         }
+        // <br>タグはまとまった文章の改行に使う
     } else {
 
         try {
