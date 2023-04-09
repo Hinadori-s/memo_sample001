@@ -26,30 +26,25 @@
     <?php
 
     include 'setting.php';
+    include 'db.php';
 
     $str = "メモあぷり";
     /* 変数strに代入 */
     echo "<h1>" . $str . "</h1>";
 
-    try {
-        $db = new PDO('mysql:dbname=memo_sample001_db;host=localhost;charset=utf8', 'root', 'root');
-        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM memo";
-        $stm = $db->prepare($sql);
-        $stm->execute();
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        echo 'DB接続エラー！: ' . $e->getMessage();
-    }
+    $sql_list = "SELECT * FROM memo";
+    $title_list = new Db;
+    $result = $title_list->db_connect($sql_list);
 
     echo "<a href = add.php>新規追加</a>";
     echo "<h2>メモ一覧</h2>";
 
     echo "<ul>";
+
     foreach ($result as $key) {
         echo "<li><a href = \"detail.php?id=" . $key["id"] .  "\" >" . $key["title"] . "</a></li>";
     }
+
     echo "</ul>";
 
     ?>

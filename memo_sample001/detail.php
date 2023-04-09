@@ -26,19 +26,13 @@
     <?php
 
     include 'setting.php';
+    include 'db.php';
 
     if ($_POST != null) {
 
-        try {
-            $db = new PDO('mysql:dbname=memo_sample001_db;host=localhost;charset=utf8', 'root', 'root');
-            $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO `memo`(`title`, `text`) VALUES ('" . $_POST["title"] . "', '" . $_POST["text"] . "')";
-            $stm = $db->prepare($sql);
-            $stm->execute();
-        } catch (PDOException $e) {
-            echo 'DB接続エラー！: ' . $e->getMessage();
-        }
+        $sql_add = "INSERT INTO `memo`(`title`, `text`) VALUES ('" . $_POST["title"] . "', '" . $_POST["text"] . "')";
+        $new_add = new Db;
+        $result = $new_add->db_connect($sql_add);
 
         $str = "登録しました";
         /* 変数strに代入 */
@@ -50,20 +44,13 @@
             echo $key . "<br>";
             echo $setting[$key]["label"] . "：" . $value . "<br>";
         }
-        // <br>タグはまとまった文章の改行に使う
+
+        // <br>はまとまった文章の改行に使う
     } else {
 
-        try {
-            $db = new PDO('mysql:dbname=memo_sample001_db;host=localhost;charset=utf8', 'root', 'root');
-            $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "SELECT * FROM memo WHERE id = '" . $_GET["id"] . "' ";
-            $stm = $db->prepare($sql);
-            $stm->execute();
-            $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            echo 'DB接続エラー！: ' . $e->getMessage();
-        }
+        $sql_detail = "SELECT * FROM memo WHERE id = '" . $_GET["id"] . "' ";
+        $view_detail = new Db;
+        $result = $view_detail->db_connect($sql_detail);
 
         foreach ($result as $key) {
             echo "<p>" . $setting["title"]["label"] .  "</p><p>" . $key["title"] . "</p>";
